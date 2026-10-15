@@ -1,0 +1,95 @@
+project:
+  name: ad-robustness-audit
+  seed: 42
+data:
+  path: /content/drive/MyDrive/oasis_longitudinal.csv
+  subject_id: Subject ID
+  filters:
+    Visit: 1
+  rename:
+    M/F: Gender
+  encode:
+    Gender:
+      M: 0
+      F: 1
+  clinical_features:
+  - Age
+  - Gender
+  - EDUC
+  - MMSE
+  imaging_features:
+  - eTIV
+  - nWBV
+  - ASF
+  target:
+    source: CDR
+    column: Target
+    rules:
+    - op: eq
+      value: 0.0
+      code: 0
+      label: Normal
+    - op: eq
+      value: 0.5
+      code: 1
+      label: MCI
+    - op: ge
+      value: 1.0
+      code: 2
+      label: AD
+    class_names:
+    - Normal
+    - MCI
+    - AD
+split:
+  test_size: 0.2
+  stratify: true
+model:
+  type: random_forest
+  class_weight: balanced
+  scoring: balanced_accuracy
+  cv_folds: 5
+  param_grid:
+    rf__n_estimators:
+    - 100
+    - 200
+    rf__max_depth:
+    - 5
+    - 10
+    - null
+    rf__min_samples_split:
+    - 2
+    - 5
+    rf__min_samples_leaf:
+    - 1
+    - 2
+missingness:
+  rates:
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  methods:
+  - mean
+  - median
+  - knn
+  knn_k: 5
+  reps: 50
+noise:
+  levels:
+  - 0.1
+  - 0.3
+  - 0.5
+  reps: 50
+elimination:
+  n_splits: 5
+  n_repeats: 10
+  retention_threshold: 0.9
+bootstrap:
+  n_boot: 1000
+output:
+  base_dir: /content/drive/MyDrive/AD_Robustness_Project
+  fig_subdir: figures
+  tab_subdir: tables
+  dpi: 300
