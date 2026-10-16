@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23399856.svg)](https://doi.org/10.5281/zenodo.23399856)
+
 # clinrobust
 
 ## Reproducible robustness audits for clinical machine-learning models
@@ -88,6 +90,26 @@ Update the following fields in the new configuration:
 - `data.imaging_features`
 - `data.target.rules`
 
+## External validation example: OASIS-3
+
+Version 0.1.1 ships `config_oasis3.yaml`, the configuration used for the OASIS-3
+external validation in the companion paper (n = 1,300; 89 AD cases). OASIS-3 must
+first be harmonised to the OASIS-2 feature schema (one baseline row per subject with
+Age, Gender, EDUC, MMSE, eTIV, nWBV, ASF and CDR); the procedure is described in the
+paper's Methods. Edit `data.path` and `output.base_dir`, then:
+
+```bash
+python run_audit.py --config config_oasis3.yaml
+```
+
+### Changes in v0.1.1
+- **Fix:** dataset-describing mappings (`filters`, `rename`, `encode`, `param_grid`)
+  in a user YAML now *replace* the defaults instead of being merged. Previously
+  `filters: {}` silently inherited the OASIS-2 `Visit: 1` filter and `encode`
+  re-mapped already-numeric columns to NaN.
+- Added `config_oasis3.yaml` and `CHANGELOG.md`.
+- Re-verified: all 116 OASIS-2 checks pass under v0.1.1.
+
 ## Verification
 
 The file `verification_report.csv` records 116 automated checks.
@@ -113,7 +135,8 @@ datasets directly from the official data providers and comply with all data-use 
 
 ## Citation
 
-Software DOI: [TO BE ADDED AFTER ZENODO RELEASE]
+Software DOI (all versions): https://doi.org/10.5281/zenodo.23399856  
+Code: https://github.com/PonsakBande/clinrobust
 
 ## License
 
