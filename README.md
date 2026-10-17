@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23399856.svg)](https://doi.org/10.5281/zenodo.23399856)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23399855.svg)](https://doi.org/10.5281/zenodo.23399855)
 
 # clinrobust
 
@@ -135,7 +135,7 @@ datasets directly from the official data providers and comply with all data-use 
 
 ## Citation
 
-Software DOI (all versions): https://doi.org/10.5281/zenodo.23399856  
+Software DOI (all versions): https://doi.org/10.5281/zenodo.23399855  
 Code: https://github.com/PonsakBande/clinrobust
 
 ## License
